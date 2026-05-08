@@ -9,7 +9,15 @@ const ALLOWED_MODELS = new Set([
 ]);
 
 export default async function handler(req, res) {
+  // Basic request logging for easier debugging in dev
+  console.log('[api/chat] incoming', { method: req.method, url: req.url, hasKey: !!process.env.GROQ_API_KEY });
   if (req.method !== "POST") return res.status(405).json({ reply: "Method not allowed." });
+
+  // Informative response when the Groq API key is missing
+  if (!process.env.GROQ_API_KEY) {
+    console.error('[api/chat] missing GROQ_API_KEY');
+    return res.status(503).json({ reply: 'GROQ_API_KEY is not configured. Set it in .env (local) or Vercel Environment Variables (production).' });
+  }
 
   try {
     const { message, history = [], model: requestedModel, currentDateTime } = req.body;
@@ -61,10 +69,19 @@ Always use this when the user asks about the current date, time, or anything tim
     return res.status(200).json({ reply, model });
 
   } catch (error) {
-    console.error("Groq API error:", error);
-    const reply = error?.status === 429
-      ? "⚠️ **Rate limit reached.** Please wait a moment and try again."
-      : "⚠️ **Service error.** Something went wrong — please try again in a moment.";
-    return res.status(500).json({ reply });
+    // Log full error server-side for debugging
+    console.error('[api/chat] Groq API error:', error && (error.stack || error));
+
+    // If Groq provided an HTTP status, forward it where appropriate
+    if (error && error.status) {
+      const msg = error?.error?.error?.message || error.message || 'Groq API error';
+      return res.status(error.status).json({ reply: msg });
+    }
+
+    // Development: expose stack for quick debugging; Production: generic message
+    const generic = '⚠️ **Service error.** Something went wrong — please try again in a moment.';
+    const reply = (process.env.NODE_ENV !== 'production') ? (error && (error.message || String(error)) || generic) : generic;
+    const status = error && error.status ? error.status : 500;
+    return res.status(status).json({ reply, ...(process.env.NODE_ENV !== 'production' ? { stack: error.stack } : {}) });
   }
 }
