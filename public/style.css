@@ -366,6 +366,7 @@ textarea#input::placeholder { color:var(--text-3); }
 
 /* ══ OVERLAY ══════════════════════════════════════════════ */
 .overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.55); z-index:150; backdrop-filter:blur(2px); }
+.overlay { z-index:10000; }
 .overlay.visible { display:block; }
 
 /* ══ ANIMATIONS ═══════════════════════════════════════════ */
@@ -379,7 +380,7 @@ textarea#input::placeholder { color:var(--text-3); }
 @media(max-width:680px) {
   .shell { height:100dvh; }
   .sidebar {
-    position:fixed; top:0; bottom:0; left:0; z-index:200;
+    position:fixed; top:0; bottom:0; left:0; z-index:10010;
     transform:translateX(-100%);
     transition:transform 0.3s cubic-bezier(0.4,0,0.2,1);
     width:min(86vw, 320px) !important; min-width:min(86vw, 320px) !important;
