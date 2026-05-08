@@ -24,7 +24,7 @@ export default async function handler(req, res) {
       ? `The current date and time is: ${currentDateTime}`
       : `The current date and time is: ${new Date().toUTCString()}`;
 
-    const systemPrompt = `You are DSA.ai, an elite Data Structures & Algorithms tutor.
+    const systemPrompt = `You are ALGO Academy, an elite Data Structures & Algorithms tutor.
 
 ## Real-World Context
 ${dateTimeContext}

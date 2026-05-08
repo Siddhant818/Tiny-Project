@@ -1,5 +1,5 @@
 // ══════════════════════════════════════════════════════════
-//  DSA.ai  —  script.js
+//  ALGO Academy  —  script.js
 //  Features: chat, file upload (image/PDF/code), voice input
 //             (Web Speech API), TTS voice output, model switch,
 //             export, clear, toast, file preview modal
@@ -655,7 +655,7 @@ window.addEventListener('load', async () => {
   await tick(600);
 
   const bubble = addMsgRow('bot');
-  const welcome = `Hey there! 👋 I'm **DSA.ai**, your personal algorithm tutor.
+  const welcome = `Hey there! 👋 I'm **ALGO Academy**, your personal algorithm tutor.
 
 I can help you with:
 - 🌳 **Data Structures** — trees, graphs, heaps, tries, linked lists

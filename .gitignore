@@ -1,2 +1,8 @@
 .vercel
 .env
+.env.local
+.env.development.local
+.env.production.local
+.env.test.local
+__pycache__/
+node_modules/
