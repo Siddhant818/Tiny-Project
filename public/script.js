@@ -624,8 +624,13 @@ async function send() {
       }),
     });
 
-    const data  = await res.json().catch(() => ({}));
-    const reply = data.reply || 'No response received.';
+    const data  = await res.json().catch(() => null);
+    let reply;
+    if (!res.ok) {
+      reply = (data && data.reply) ? data.reply : `Server error ${res.status} ${res.statusText || ''}`;
+    } else {
+      reply = (data && data.reply) ? data.reply : 'No response received.';
+    }
 
     typingBubble.closest('.msg-wrap').remove();
     const botBubble = addMsgRow('bot');
