@@ -377,25 +377,53 @@ textarea#input::placeholder { color:var(--text-3); }
 
 /* ══ RESPONSIVE ═══════════════════════════════════════════ */
 @media(max-width:680px) {
+  .shell { height:100dvh; }
   .sidebar {
     position:fixed; top:0; bottom:0; left:0; z-index:200;
     transform:translateX(-100%);
     transition:transform 0.3s cubic-bezier(0.4,0,0.2,1);
-    width:var(--sb-w) !important; min-width:var(--sb-w) !important;
+    width:min(86vw, 320px) !important; min-width:min(86vw, 320px) !important;
     padding:18px 14px 16px !important; opacity:1 !important;
     border-right:1px solid var(--border) !important; pointer-events:all !important;
     overflow:hidden;
   }
   .sidebar.open { transform:translateX(0); }
   /* On mobile, collapsed class does nothing — open/close via transform */
-  .sidebar.collapsed { width:var(--sb-w) !important; min-width:var(--sb-w) !important; }
+  .sidebar.collapsed { width:min(86vw, 320px) !important; min-width:min(86vw, 320px) !important; }
+  .topbar { padding:0 12px; gap:8px; }
+  .tb-l, .tb-r { min-width:0; }
+  .tb-c { display:none; }
+  .tb-brand { font-size:0.82rem; gap:5px; }
+  .tbb-icon { width:20px; height:20px; }
   .starter-grid { grid-template-columns:1fr; max-width:320px; }
-  .chat-area { padding:20px 14px 12px; }
-  .composer-area { padding:8px 14px 12px; }
-  .attach-strip { padding:8px 14px; }
+  .chat-area { padding:18px 12px 10px; }
+  .composer-area { padding:8px 10px 10px; }
+  .composer { gap:6px; padding:8px; border-radius:16px; }
+  .comp-btn, #sendBtn { width:32px; height:32px; }
+  textarea#input { font-size:0.88rem; min-height:38px; }
+  .comp-hint { display:none; }
+  .attach-strip { padding:8px 12px; }
   .bubble { font-size:0.85rem; }
   pre { font-size:0.76rem; }
-  .empty-h { font-size:1.6rem; }
+  .empty-h { font-size:1.55rem; }
+  .empty-p { font-size:0.84rem; line-height:1.65; }
   .empty-features { gap:6px; }
   .ef-item { font-size:0.7rem; padding:5px 10px; }
+  #toastContainer { bottom:74px; left:50%; transform:translateX(-50%); width:min(92vw, 420px); }
+  .toast { width:100%; text-align:center; white-space:normal; }
+  .vo-box { min-width:0; width:min(92vw, 340px); padding:28px 20px; }
+  .vo-transcript { max-width:100%; }
+}
+
+@media(max-width:420px) {
+  .brand-name, .tb-brand { letter-spacing:-0.2px; }
+  .brand-name { font-size:1rem; }
+  .sb-header { gap:8px; }
+  .new-btn, .sb-btn { font-size:0.72rem; }
+  .empty-state { padding-bottom:20px; }
+  .empty-icon { width:60px; height:60px; }
+  .starter-grid { gap:8px; }
+  .sc { padding:12px 14px; }
+  .msg-wrap { max-width:100%; }
+  .user-bubble { max-width:90%; }
 }
